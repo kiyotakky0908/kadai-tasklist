@@ -4,11 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-
-
-use App\Http\Requests;
-
-use App\Tasks; 
+use App\Task;
 
 class TasksController extends Controller
 {
@@ -19,11 +15,12 @@ class TasksController extends Controller
      */
     public function index()
     {
-        $task = Task::all();
+        $tasks = Task::all();
 
-        return view('tasks.index', [
+        return view('messages.index', [
             'tasks' => $tasks,
         ]);
+
     }
 
     /**
@@ -33,11 +30,12 @@ class TasksController extends Controller
      */
     public function create()
     {
-        $message = new Message;
+        $task = new Task;
 
         return view('tasks.create', [
             'task' => $task,
         ]);
+
     }
 
     /**
@@ -48,13 +46,9 @@ class TasksController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request, [
-            'content' => 'required|max:191',
-        ]);
-
-        $message = new Message;
-        $message->content = $request->content;
-        $message->save();
+         $task = new Task;
+        $task->content = $request->content;
+        $task->save();
 
         return redirect('/');
 
@@ -68,11 +62,12 @@ class TasksController extends Controller
      */
     public function show($id)
     {
-        $message = Message::find($id);
+        $task = Task::find($id);
 
         return view('tasks.show', [
             'task' => $task,
         ]);
+
     }
 
     /**
@@ -83,11 +78,12 @@ class TasksController extends Controller
      */
     public function edit($id)
     {
-        $task = Task::find($id);
+         $task = Task::find($id);
 
         return view('tasks.edit', [
             'task' => $task,
         ]);
+
     }
 
     /**
@@ -99,14 +95,12 @@ class TasksController extends Controller
      */
     public function update(Request $request, $id)
     {
-   
-    
-    
-        $task = Message::find($id);
+          $task = Task::find($id);
         $task->content = $request->content;
         $task->save();
 
         return redirect('/');
+
     }
 
     /**
@@ -117,6 +111,10 @@ class TasksController extends Controller
      */
     public function destroy($id)
     {
-        //
+         $task = Task::find($id);
+        $task->delete();
+
+        return redirect('/');
+
     }
 }
