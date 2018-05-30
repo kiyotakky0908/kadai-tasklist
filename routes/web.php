@@ -14,3 +14,6 @@
 Route::get('/', function () {
     return view('welcome');
 });
+Route::resource('messages', 'MessagesController');
+// copy function (button)
+Route::get('messages/{id}/copy', 'MessagesController@copy');
