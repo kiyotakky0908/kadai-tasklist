@@ -48,7 +48,7 @@ class TasksController extends Controller
     {
         $this->validate($request, [
             'status' => 'required|max:10',
-            'content' => 'required|max:191',
+            'content' => 'required|max:',
               ]);
          $task = new Task;
          $task->status = $request->status;  
